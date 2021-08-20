@@ -20,7 +20,7 @@ Library for parsing time durations in natural language.
 
 `go get github.com/CubicrootXYZ/gonaturalduration`
 
-## Examples
+## Code-Examples
 
 ```
 package main
@@ -37,3 +37,20 @@ func main() {
 	log.Print(fmt.Sprintf("%v", duration))
 }
 ```
+
+## Parser examples
+
+* 1d (1 day)
+    * "1 day"
+    * "there once was an attempt to generate a duration of 1 day"
+    * "this is 01 day"
+* 1h (1 hour)
+    * "1 hour"
+    * "01 hour"
+    * "please remind me in 1 hour"
+* -1s (-1 second)
+    * "this happend -1 second ago"
+    * "-1 second"
+* 1d2m (1 day and 2 minutes)
+    * "1 day and 2 minutes"
+    * "we have 2 minutes and 1 day left"
