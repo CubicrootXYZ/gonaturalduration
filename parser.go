@@ -9,13 +9,24 @@ import (
 
 // Parse parses the first found duration in text and returns it as time.duration
 func Parse(text string) time.Duration {
+	var duration time.Duration
 
-	regDay := regexp.MustCompile(`(\w+) (day|days)`)
-	matchDay := regDay.FindAllStringSubmatch(text, -1)
-	if len(matchDay) > 0 {
-		return toDuration(matchDay[0][1], 24*time.Hour)
+	// Patterns with first match group beeing a number
+	defaultSearchPatterns := make(map[time.Duration]string)
+	defaultSearchPatterns[24*time.Hour] = `(\w+) (day|days)`
+	defaultSearchPatterns[time.Hour] = `(\w+) (hour|hours)`
+	defaultSearchPatterns[time.Minute] = `(\w+) (minute|minutes)`
+	defaultSearchPatterns[time.Second] = `(\w+) (second|seconds)`
+
+	for unit, pattern := range defaultSearchPatterns {
+		reg := regexp.MustCompile(pattern)
+		match := reg.FindAllStringSubmatch(text, -1)
+		if len(match) > 0 {
+			duration += toDuration(match[0][1], unit)
+		}
 	}
-	return 0
+
+	return duration
 }
 
 func toDuration(number string, unit time.Duration) time.Duration {
