@@ -100,10 +100,6 @@ func WordsToInt(words []string) (int, error) {
 	return number, nil
 }
 
-func numberSpliter(r rune) bool {
-	return r == '-' || r == ' '
-}
-
 func sum(array []int) int {
 	result := 0
 	for _, v := range array {
