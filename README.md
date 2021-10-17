@@ -68,6 +68,19 @@ func main() {
     * "please to that in one day and two minutes"
     * "1 day and two minutes"
 
+## Benchmarks
+
+```
+cpu: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+Benchmark_ParseNumberMax-12               313725              3509 ns/op
+Benchmark_ParseNumberMin-12               451539              2580 ns/op
+Benchmark_ParseNumberMixed-12             105146             10566 ns/op
+Benchmark_ParseNumberMixedLong-12          98262             12282 ns/op
+Benchmark_ParseMixed-12                    53251             22593 ns/op
+Benchmark_ParseMixedLong-12                27094             44473 ns/op
+Benchmark_ParseMax-12                      70125             16898 ns/op
+Benchmark_ParseMin-12                      68516             16181 ns/op
+```
 
 ## Contributing
 

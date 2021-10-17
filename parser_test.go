@@ -33,6 +33,54 @@ func TestParser_ParseNumber(t *testing.T) {
 	}
 }
 
+func Benchmark_ParseNumberMax(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ParseNumber("nine hundred ninety nine thousand nine hundred ninety nine days")
+	}
+}
+
+func Benchmark_ParseNumberMin(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ParseNumber("one second")
+	}
+}
+
+func Benchmark_ParseNumberMixed(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ParseNumber("ninety nine days, six hour, fourty three minutes and fourty five second")
+	}
+}
+
+func Benchmark_ParseNumberMixedLong(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ParseNumber("This is a random text where I am trying to get more words into it. So in ninety nine days, six hour, fourty three minutes and fourty five second something might happen. Or not.")
+	}
+}
+
+func Benchmark_ParseMixed(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Parse("99 days, 6 hour, 43 minute and 45 second")
+	}
+}
+
+func Benchmark_ParseMixedLong(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Parse("This is a random text where I am trying to get more words into it. So in 99 days, 6 hour, 43 minute and 45 second something might happen. Or not.")
+	}
+}
+
+func Benchmark_ParseMax(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Parse("999999 days")
+	}
+}
+
+func Benchmark_ParseMin(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Parse("1 second")
+	}
+}
+
 // ##### DEFINE TESTCASES HERE #####
 
 func getDigitTestCases() []TestCase {
