@@ -85,6 +85,15 @@ func Benchmark_ParseMin(b *testing.B) {
 
 func getDigitTestCases() []TestCase {
 	testCases := make([]TestCase, 0)
+	// Years
+	testCases = append(testCases, TestCase{Duration: 8760 * time.Hour, Text: "1 year"})
+	testCases = append(testCases, TestCase{Duration: 17520 * time.Hour, Text: "seems like 2 years are great!"})
+	// Months
+	testCases = append(testCases, TestCase{Duration: 720 * time.Hour, Text: "1 month"})
+	testCases = append(testCases, TestCase{Duration: 1440 * time.Hour, Text: "seems like 2 months are great!"})
+	// Weeks
+	testCases = append(testCases, TestCase{Duration: 168 * time.Hour, Text: "1 week"})
+	testCases = append(testCases, TestCase{Duration: 336 * time.Hour, Text: "seems like 2 weeks are great!"})
 	// Days
 	testCases = append(testCases, TestCase{Duration: 24 * time.Hour, Text: "1 day"})
 	testCases = append(testCases, TestCase{Duration: 0, Text: "0 day"})
@@ -109,18 +118,33 @@ func getDigitTestCases() []TestCase {
 	testCases = append(testCases, TestCase{Duration: 0, Text: "the 012 da lacy"})
 	testCases = append(testCases, TestCase{Duration: 0, Text: "second minute day year"})
 	// MIXED
+	// Year + Month + Week + Day
+	testCases = append(testCases, TestCase{Duration: 538 * 24 * time.Hour, Text: "Hurry up! There is a storm in 1 year, 4 months, 6 weeks and 11 days"})
 	// Day + Hour + Minute + Second
 	testCases = append(testCases, TestCase{Duration: 25*time.Hour + time.Minute + time.Second, Text: "We need this in 1 day, 1 hour, 1 minute and 1 second"})
 	// Hour + Minute + Second
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute + time.Second, Text: "We need this in 1 hour, 1 second and 1 minute"})
 	// Hour + Second
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Second, Text: "We need this in 1 hour and 1 second"})
+	// Special characters
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember A, B, c in 1 hour and 1 minute"})
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember c. In 1 hour and 1 minute"})
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember !§%$%&%&(&/)(=?)'*#+_.,.:;:><<²³¼½¼½¬¬. In 1 hour and 1 minute"})
 
 	return testCases
 }
 
 func getNumberTestCases() []TestCase {
 	testCases := make([]TestCase, 0)
+	// Years
+	testCases = append(testCases, TestCase{Duration: 8760 * time.Hour, Text: "one year"})
+	testCases = append(testCases, TestCase{Duration: 17520 * time.Hour, Text: "seems like two years are great!"})
+	// Months
+	testCases = append(testCases, TestCase{Duration: 720 * time.Hour, Text: "one month"})
+	testCases = append(testCases, TestCase{Duration: 1440 * time.Hour, Text: "seems like two months are great!"})
+	// Weeks
+	testCases = append(testCases, TestCase{Duration: 168 * time.Hour, Text: "one week"})
+	testCases = append(testCases, TestCase{Duration: 336 * time.Hour, Text: "seems like two weeks are great!"})
 	// Days
 	testCases = append(testCases, TestCase{Duration: 24 * time.Hour, Text: "one day"})
 	testCases = append(testCases, TestCase{Duration: 0, Text: "zero day"})
@@ -146,6 +170,8 @@ func getNumberTestCases() []TestCase {
 	testCases = append(testCases, TestCase{Duration: 0, Text: "the 012 da lacy"})
 	testCases = append(testCases, TestCase{Duration: 0, Text: "second minute day year"})
 	// MIXED
+	// Year + Month + Week + Day
+	testCases = append(testCases, TestCase{Duration: 538 * 24 * time.Hour, Text: "Hurry up! There is a storm in one year, 4 months, six weeks and eleven days"})
 	// Day + Hour + Minute + Second
 	testCases = append(testCases, TestCase{Duration: 25*time.Hour + time.Minute + time.Second, Text: "We need this in one day, one hour, one minute and one second"})
 	// Hour + Minute + Second
@@ -153,6 +179,10 @@ func getNumberTestCases() []TestCase {
 	// Hour + Second
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Second, Text: "We need this in one hour and one second"})
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Second, Text: "We need this in 1 hour and one second"})
+	// Special characters
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember A, B, c in one hour and 1 minute"})
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember c. In one hour and 1 minute"})
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember !§%$%&%&(&/)(=?)'*#+_.,.:;:><<²³¼½¼½¬¬. In one hour and 1 minute"})
 
 	return testCases
 }

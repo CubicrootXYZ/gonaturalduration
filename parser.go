@@ -7,12 +7,15 @@ import (
 	"github.com/CubicrootXYZ/gonaturalduration/converter"
 )
 
-// Parse parses the first found duration in text and returns it as time.Duration. Can only handle digits not written numbers.
+// Parse parses the first found duration in text and returns it as time.Duration. Can only handle digits not written numbers but is faster.
 func Parse(text string) time.Duration {
 	var duration time.Duration
 
 	// Patterns with first match group beeing a number
 	defaultSearchPatterns := make(map[time.Duration]string)
+	defaultSearchPatterns[8760*time.Hour] = `(\w+) (year|years)`
+	defaultSearchPatterns[720*time.Hour] = `(\w+) (month|months)`
+	defaultSearchPatterns[168*time.Hour] = `(\w+) (week|weeks)`
 	defaultSearchPatterns[24*time.Hour] = `(\w+) (day|days)`
 	defaultSearchPatterns[time.Hour] = `(\w+) (hour|hours)`
 	defaultSearchPatterns[time.Minute] = `(\w+) (minute|minutes)`
