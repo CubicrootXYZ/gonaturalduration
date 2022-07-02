@@ -36,7 +36,7 @@ jobs:
         with:
           go-version: '^1.18.3'
       - name: Fuzz Parse
-        run: "go test -fuzz=FuzzParser_Parse$ -fuzztime: 30s"
+        run: "go test -fuzz=FuzzParser_Parse$ -fuzztime=30s"
       - name: Fuzz ParseNumber
-        run: "go test -fuzz=FuzzParser_ParseNumber$ -fuzztime: 30s"
+        run: "go test -fuzz=FuzzParser_ParseNumber$ -fuzztime=30s"
       
