@@ -6,6 +6,8 @@
 
 Library for parsing time durations in natural language.
 
+![mascot](images/mascot_100x100.png)
+
 ## Features
 
 * Supports different kinds of durations:
