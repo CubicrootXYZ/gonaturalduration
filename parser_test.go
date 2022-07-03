@@ -81,6 +81,24 @@ func Benchmark_ParseMin(b *testing.B) {
 	}
 }
 
+func FuzzParser_Parse(f *testing.F) {
+	f.Add(string("this is my random sentence, where I ask you to bring me: milk, bread and a cat "))
+	f.Fuzz(func(t *testing.T, s string) {
+		// We always add a proper duration to the test string so we know the parser should find at least that, thus characters and combinations breaking the parsing will result in a zero duration
+		res := Parse(s + " in 22 seconds")
+		assert.Greaterf(t, int(res/time.Millisecond), 0, "The result is a zero time, parsing failed. String was: ", s)
+	})
+}
+
+func FuzzParser_ParseNumber(f *testing.F) {
+	f.Add(string("this is my random sentence, where I ask you to bring me: milk, bread and a cat "))
+	f.Fuzz(func(t *testing.T, s string) {
+		// We always add a proper duration to the test string so we know the parser should find at least that, thus characters and combinations breaking the parsing will result in a zero duration
+		res := ParseNumber(s + " in twenty two seconds")
+		assert.Greaterf(t, int(res/time.Millisecond), 0, "The result is a zero time, parsing failed. String was: ", s)
+	})
+}
+
 // ##### DEFINE TESTCASES HERE #####
 
 func getDigitTestCases() []TestCase {
