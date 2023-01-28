@@ -2,28 +2,30 @@ package gonaturalduration
 
 import (
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/CubicrootXYZ/gonaturalduration/converter"
 )
 
+// Patterns with first match group beeing a number
+var defaultSearchPatterns = map[time.Duration]*regexp.Regexp{
+	8760 * time.Hour: regexp.MustCompile(`(\w+) (year|years)`),
+	720 * time.Hour:  regexp.MustCompile(`(\w+) (month|months)`),
+	168 * time.Hour:  regexp.MustCompile(`(\w+) (week|weeks)`),
+	24 * time.Hour:   regexp.MustCompile(`(\w+) (day|days)`),
+	time.Hour:        regexp.MustCompile(`(\w+) (hour|hours)`),
+	time.Minute:      regexp.MustCompile(`(\w+) (minute|minutes)`),
+	time.Second:      regexp.MustCompile(`(\w+) (second|seconds)`),
+}
+
 // Parse parses the first found duration in text and returns it as time.Duration. Can only handle digits not written numbers but is faster.
 func Parse(text string) time.Duration {
+	text = strings.ToLower(text)
 	var duration time.Duration
 
-	// Patterns with first match group beeing a number
-	defaultSearchPatterns := make(map[time.Duration]string)
-	defaultSearchPatterns[8760*time.Hour] = `(\w+) (year|years)`
-	defaultSearchPatterns[720*time.Hour] = `(\w+) (month|months)`
-	defaultSearchPatterns[168*time.Hour] = `(\w+) (week|weeks)`
-	defaultSearchPatterns[24*time.Hour] = `(\w+) (day|days)`
-	defaultSearchPatterns[time.Hour] = `(\w+) (hour|hours)`
-	defaultSearchPatterns[time.Minute] = `(\w+) (minute|minutes)`
-	defaultSearchPatterns[time.Second] = `(\w+) (second|seconds)`
-
 	for unit, pattern := range defaultSearchPatterns {
-		reg := regexp.MustCompile(pattern)
-		match := reg.FindAllStringSubmatch(text, -1)
+		match := pattern.FindAllStringSubmatch(text, -1)
 		if len(match) > 0 {
 			duration += stringToDuration(match[0][1], unit)
 		}
@@ -34,6 +36,7 @@ func Parse(text string) time.Duration {
 
 // ParseNumber parses the first found duration in the text and returns it as time.Duration. Can handle digits as well as written numbers.
 func ParseNumber(text string) time.Duration {
+	text = strings.ToLower(text)
 	var duration time.Duration
 	words := splitIntoWords(text)
 

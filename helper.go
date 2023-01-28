@@ -18,12 +18,12 @@ func stringToDuration(number string, unit time.Duration) time.Duration {
 
 // splitIntoWords splits the string into an array of words
 func splitIntoWords(text string) []string {
-	return strings.FieldsFunc(strings.ReplaceAll(strings.ReplaceAll(strings.ToLower(text), "\n", " "), ",", ""), numberSpliter)
+	return strings.FieldsFunc(text, numberSpliter)
 }
 
 // numberSplitter determines the runes to split words on
 func numberSpliter(r rune) bool {
-	return r == '-' || r == ' '
+	return r == '-' || r == ' ' || r == ',' || r == '\n'
 }
 
 // notIn checks if a unit is already in a list of units

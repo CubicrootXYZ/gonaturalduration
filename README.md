@@ -78,14 +78,14 @@ func main() {
 
 ```
 cpu: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
-Benchmark_ParseNumberMax-12          	  283077	      5622 ns/op	    2569 B/op	      42 allocs/op
-Benchmark_ParseNumberMin-12          	  386389	      4012 ns/op	    2385 B/op	      37 allocs/op
-Benchmark_ParseNumberMixed-12        	   83979	     18327 ns/op	    9724 B/op	     146 allocs/op
-Benchmark_ParseNumberMixedLong-12    	   65541	     20391 ns/op	   11404 B/op	     148 allocs/op
-Benchmark_ParseMixed-12              	   19100	     58193 ns/op	   28558 B/op	     269 allocs/op
-Benchmark_ParseMixedLong-12          	   12688	     91127 ns/op	   28519 B/op	     269 allocs/op
-Benchmark_ParseMax-12                	   26067	     62868 ns/op	   27553 B/op	     260 allocs/op
-Benchmark_ParseMin-12                	   30092	     49380 ns/op	   27586 B/op	     260 allocs/op
+Benchmark_ParseNumberMax-12               283080              4548 ns/op            2601 B/op         42 allocs/op
+Benchmark_ParseNumberMin-12               350337              3074 ns/op            2417 B/op         37 allocs/op
+Benchmark_ParseNumberMixed-12              93307             13945 ns/op            9852 B/op        146 allocs/op
+Benchmark_ParseNumberMixedLong-12          80961             15239 ns/op           11533 B/op        148 allocs/op
+Benchmark_ParseMixed-12                    76900             15187 ns/op            1347 B/op         12 allocs/op
+Benchmark_ParseMixedLong-12                21332             55825 ns/op            1344 B/op         12 allocs/op
+Benchmark_ParseMax-12                     243813              4662 ns/op             337 B/op          3 allocs/op
+Benchmark_ParseMin-12                     315446              3572 ns/op             337 B/op          3 allocs/op
 ```
 
 ## Contributing

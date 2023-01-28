@@ -3,7 +3,6 @@ package converter
 import (
 	"regexp"
 	"strconv"
-	"strings"
 )
 
 // WordToInt maps words to integers
@@ -44,6 +43,8 @@ var units = map[string]int{
 	"thousand": 1000,
 }
 
+var regDigit = regexp.MustCompile("^[0-9]+$")
+
 // StringToInt parses the given string into an integer
 func StringToInt(text string) (int, error) {
 	// TODO also parse written numbers
@@ -57,8 +58,7 @@ func WordsToInt(words []string) (int, error) {
 	}
 
 	// Check if it is a digit
-	reg := regexp.MustCompile("^[0-9]+$")
-	if reg.Match([]byte(words[len(words)-1])) {
+	if regDigit.MatchString(words[len(words)-1]) {
 		return StringToInt(words[len(words)-1])
 	}
 
@@ -69,12 +69,11 @@ func WordsToInt(words []string) (int, error) {
 	unitMultiplicator := 1
 
 	for i := len(words) - 1; i >= 0; i-- {
-		word := strings.ToLower(words[i])
-		if value, ok := wordToInt[word]; ok {
+		if value, ok := wordToInt[words[i]]; ok {
 			// it is a number
 			numbers[unitMultiplicator] = append(numbers[unitMultiplicator], value)
 			nan = 0
-		} else if value, ok := units[word]; ok {
+		} else if value, ok := units[words[i]]; ok {
 			// it is a multiplier
 			if unitMultiplicator > value {
 				unitMultiplicator = value * unitMultiplicator
@@ -102,8 +101,8 @@ func WordsToInt(words []string) (int, error) {
 
 func sum(array []int) int {
 	result := 0
-	for _, v := range array {
-		result += v
+	for i := range array {
+		result += array[i]
 	}
 	return result
 }
