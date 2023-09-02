@@ -40,7 +40,8 @@ jobs:
         run: "go test -fuzz=FuzzParser_ParseNumber$ -fuzztime=30s"
   lint:
     runs-on: ubuntu-latest
-    image: golangci/golangci-lint
+    container:
+      image: golangci/golangci-lint
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
