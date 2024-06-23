@@ -16,7 +16,7 @@ jobs:
       - name: Setup go environment
         uses: actions/setup-go@v2
         with:
-          go-version: '^1.21.0'
+          go-version: '^1.22.4'
       - name: Install dependencies
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
       - name: Run tests
@@ -33,7 +33,7 @@ jobs:
       - name: Setup go environment
         uses: actions/setup-go@v2
         with:
-          go-version: '^1.21.0'
+          go-version: '^1.22.4'
       - name: Fuzz Parse
         run: "go test -fuzz=FuzzParser_Parse$ -fuzztime=30s"
       - name: Fuzz ParseNumber
