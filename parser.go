@@ -1,6 +1,7 @@
 package gonaturalduration
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 	"time"
@@ -10,13 +11,13 @@ import (
 
 // Patterns with first match group beeing a number
 var defaultSearchPatterns = map[time.Duration]*regexp.Regexp{
-	8760 * time.Hour: regexp.MustCompile(`(\w+) (year|years)`),
-	720 * time.Hour:  regexp.MustCompile(`(\w+) (month|months)`),
-	168 * time.Hour:  regexp.MustCompile(`(\w+) (week|weeks)`),
-	24 * time.Hour:   regexp.MustCompile(`(\w+) (day|days)`),
-	time.Hour:        regexp.MustCompile(`(\w+) (hour|hours)`),
-	time.Minute:      regexp.MustCompile(`(\w+) (minute|minutes)`),
-	time.Second:      regexp.MustCompile(`(\w+) (second|seconds)`),
+	8760 * time.Hour: regexp.MustCompile(`((\w+)[ ]+|[ ]*)(year|years)`),
+	720 * time.Hour:  regexp.MustCompile(`((\w+)[ ]+|[ ]*)(month|months)`),
+	168 * time.Hour:  regexp.MustCompile(`((\w+)[ ]+|[ ]*)(week|weeks)`),
+	24 * time.Hour:   regexp.MustCompile(`((\w+)[ ]+|[ ]*)(day|days)`),
+	time.Hour:        regexp.MustCompile(`((\w+)[ ]+|[ ]*)(hour|hours)`),
+	time.Minute:      regexp.MustCompile(`((\w+)[ ]+|[ ]*)(minute|minutes)`),
+	time.Second:      regexp.MustCompile(`((\w+)[ ]+|[ ]*)(second|seconds)`),
 }
 
 // Parse parses the first found duration in text and returns it as time.Duration. Can only handle digits not written numbers but is faster.
@@ -26,6 +27,8 @@ func Parse(text string) time.Duration {
 
 	for unit, pattern := range defaultSearchPatterns {
 		match := pattern.FindAllStringSubmatch(text, -1)
+		fmt.Println(match)
+		fmt.Println(unit)
 		if len(match) > 0 {
 			duration += stringToDuration(match[0][1], unit)
 		}
