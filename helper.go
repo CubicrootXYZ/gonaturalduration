@@ -9,9 +9,14 @@ import (
 
 // toDuration converts a string to a time.Duration. The integer will be multiolied with the unit
 func stringToDuration(number string, unit time.Duration) time.Duration {
+	number = strings.TrimSpace(number)
+	if number == "" {
+		return unit
+	}
+
 	multiplier, err := converter.StringToInt(number)
 	if err != nil {
-		return 0
+		return unit
 	}
 	return unit * time.Duration(multiplier)
 }
