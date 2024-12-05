@@ -22,6 +22,13 @@ func TestParser_Parse(t *testing.T) {
 	}
 }
 
+func TestParser_ParseWIP(t *testing.T) {
+	assert := assert.New(t)
+
+	duration := Parse("second minute day year")
+	assert.Equal(time.Hour, duration)
+}
+
 func TestParser_ParseNumber(t *testing.T) {
 	assert := assert.New(t)
 	testCases := getDigitTestCases()
@@ -104,15 +111,21 @@ func FuzzParser_ParseNumber(f *testing.F) {
 func getDigitTestCases() []TestCase {
 	testCases := make([]TestCase, 0)
 	// Years
+	testCases = append(testCases, TestCase{Duration: 8760 * time.Hour, Text: "year"})
+	testCases = append(testCases, TestCase{Duration: 8760 * time.Hour, Text: "  year"})
 	testCases = append(testCases, TestCase{Duration: 8760 * time.Hour, Text: "1 year"})
 	testCases = append(testCases, TestCase{Duration: 17520 * time.Hour, Text: "seems like 2 years are great!"})
 	// Months
+	testCases = append(testCases, TestCase{Duration: 720 * time.Hour, Text: "month"})
+	testCases = append(testCases, TestCase{Duration: 720 * time.Hour, Text: " month"})
 	testCases = append(testCases, TestCase{Duration: 720 * time.Hour, Text: "1 month"})
 	testCases = append(testCases, TestCase{Duration: 1440 * time.Hour, Text: "seems like 2 months are great!"})
 	// Weeks
 	testCases = append(testCases, TestCase{Duration: 168 * time.Hour, Text: "1 week"})
 	testCases = append(testCases, TestCase{Duration: 336 * time.Hour, Text: "seems like 2 weeks are great!"})
 	// Days
+	testCases = append(testCases, TestCase{Duration: 24 * time.Hour, Text: "day"})
+	testCases = append(testCases, TestCase{Duration: 24 * time.Hour, Text: " day"})
 	testCases = append(testCases, TestCase{Duration: 24 * time.Hour, Text: "1 day"})
 	testCases = append(testCases, TestCase{Duration: 0, Text: "0 day"})
 	testCases = append(testCases, TestCase{Duration: 24 * 24 * time.Hour, Text: "24 day"})
@@ -120,11 +133,14 @@ func getDigitTestCases() []TestCase {
 	testCases = append(testCases, TestCase{Duration: -1 * time.Duration(-48) * time.Hour, Text: "-2 day"})
 	testCases = append(testCases, TestCase{Duration: 24 * time.Hour, Text: "there once was an attempt to 01 days generate a test"})
 	// Hours
+	testCases = append(testCases, TestCase{Duration: 1 * time.Hour, Text: "hour"})
+	testCases = append(testCases, TestCase{Duration: 1 * time.Hour, Text: "  hour   "})
 	testCases = append(testCases, TestCase{Duration: 99 * time.Hour, Text: "äää 99 hours"})
 	testCases = append(testCases, TestCase{Duration: 1 * time.Hour, Text: "later the day we will meet or remind me in 1 hour"})
 	testCases = append(testCases, TestCase{Duration: -1 * time.Duration(-2) * time.Hour, Text: "remind me in -2 hours"})
 	// Minutes
 	testCases = append(testCases, TestCase{Duration: 10 * time.Minute, Text: "In 10 minutes"})
+	testCases = append(testCases, TestCase{Duration: 1 * time.Minute, Text: "minute"})
 	testCases = append(testCases, TestCase{Duration: 1 * time.Minute, Text: "In 1 minute"})
 	testCases = append(testCases, TestCase{Duration: -1 * time.Duration(-4578) * time.Minute, Text: "let's meet -4578 minute"})
 	// Seconds
@@ -148,6 +164,7 @@ func getDigitTestCases() []TestCase {
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember A, B, c in 1 hour and 1 minute"})
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember c. In 1 hour and 1 minute"})
 	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "Remember !§%$%&%&(&/)(=?)'*#+_.,.:;:><<²³¼½¼½¬¬. In 1 hour and 1 minute"})
+	testCases = append(testCases, TestCase{Duration: time.Hour + time.Minute, Text: "every hour and minute"})
 
 	return testCases
 }
